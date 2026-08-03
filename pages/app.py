@@ -448,7 +448,7 @@ elif menu == "Perbandingan Model":
         st.markdown("</div>", unsafe_allow_html=True)
         
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("### Recall Kelas 'Panjang' (Fokus Evaluasi Skripsi)")
+        st.markdown("### Recall Kelas 'Panjang'")
         st.info("Tujuan utama digunakannya teknik SMOTENC adalah untuk meningkatkan kemampuan model mendeteksi kelas 'Panjang' (pasien yang akan dirawat lebih dari 5 hari) yang jumlahnya sangat sedikit. Skor Recall di bawah ini menunjukkan persentase kelas Panjang yang berhasil ditangkap.")
         c1, c2 = st.columns(2)
         for i, (nama, m) in enumerate(metrik_all.items()):
