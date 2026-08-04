@@ -127,3 +127,8 @@ df_clean = df[KOLOM_FINAL].copy()
 os.makedirs('data', exist_ok=True)
 df_clean.to_csv('data/data_clean.csv', index=False)
 print(f"\nData bersih disimpan: data/data_clean.csv ({len(df_clean)} baris)")
+
+# ── VERIFIKASI KODE DIAGNOSIS ──────────────
+top_diagnosis = df['kode_diagnosis'].value_counts().head(10)
+print("\nTop 10 kode_diagnosis (dataset bersih, n=5.390):")
+print(top_diagnosis)

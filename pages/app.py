@@ -103,7 +103,7 @@ def load_shap_explainer(_model):
 model, encoders, FITUR, nama_model = load_assets()
 shap_explainer = load_shap_explainer(model)
 
-LABEL       = {0: 'Pendek (≤ 2 days)', 1: 'Sedang (3-5 days)', 2: 'Panjang (> 5 days)'}
+LABEL       = {0: 'Pendek (≤ 2 hari)', 1: 'Sedang (3-5 hari)', 2: 'Panjang (> 5 hari)'}
 LABEL_SHORT = ['Pendek', 'Sedang', 'Panjang']
 BADGE_CSS   = {0: 'badge-pendek', 1: 'badge-sedang', 2: 'badge-panjang'}
 WARNA_BAR   = ['#22c55e', '#f59e0b', '#ef4444']
