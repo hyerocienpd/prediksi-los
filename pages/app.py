@@ -323,7 +323,7 @@ if menu == "Prediksi Individu":
             st.markdown("### Hasil Prediksi")
             st.markdown(f"<div class='{BADGE_CSS[pred]}'>{LABEL[pred]}</div>", unsafe_allow_html=True)
             st.caption(
-                "Model memiliki F1-macro ±0,57 dan recall kelas 'Panjang' yang masih terbatas. "
+                "Model memiliki F1-macro 0,5783 dan recall kelas 'Panjang' yang masih terbatas. "
                 "Dapat digunakan sebagai alat bantu pendukung, bukan pengganti penilaian klinis. "
                 "Lihat halaman *Perbandingan Model* untuk detail performa."
             )
