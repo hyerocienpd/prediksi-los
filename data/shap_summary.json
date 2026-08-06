@@ -1,20 +1,20 @@
 {
   "XGBoost": {
-    "usia": 0.13821,
-    "jenis_kelamin": 0.00333,
-    "bab_diagnosis": 0.15088,
-    "ruang_perawatan": 0.11207,
-    "jenis_perawatan": 0.34198,
-    "cara_datang": 0.0574,
-    "hari_masuk": 0.0511
+    "usia": 0.12036,
+    "jenis_kelamin": 0.01191,
+    "bab_diagnosis": 0.15304,
+    "ruang_perawatan": 0.11707,
+    "jenis_perawatan": 0.33045,
+    "cara_datang": 0.0909,
+    "hari_masuk": 0.02924
   },
   "Random Forest": {
-    "usia": 0.0525,
-    "jenis_kelamin": 0.01254,
-    "bab_diagnosis": 0.05383,
-    "ruang_perawatan": 0.04423,
-    "jenis_perawatan": 0.09099,
-    "cara_datang": 0.02321,
-    "hari_masuk": 0.0258
+    "usia": 0.05439,
+    "jenis_kelamin": 0.01483,
+    "bab_diagnosis": 0.0567,
+    "ruang_perawatan": 0.04023,
+    "jenis_perawatan": 0.09144,
+    "cara_datang": 0.03023,
+    "hari_masuk": 0.02166
   }
 }

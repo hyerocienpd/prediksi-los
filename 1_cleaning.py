@@ -43,7 +43,11 @@ df = df[df['los'].notna() & (df['los'] >= 0)]
 df = df[df['los'] <= 19]
 print(f"Setelah filter anomali tanggal & LoS: {len(df)} baris")
 
-# ── DEDUPLIKASI: AMBIL DIAGNOSIS PRIMER TIAP KUNJUNGAN ────────────────────────
+# ── DEDUPLIKASI KUNJUNGAN (ASUMSI DIAGNOSIS UTAMA) ───────────────────────────
+# Pada kunjungan dengan >1 kode diagnosis (sekitar 2,8% dari total kunjungan),
+# diambil baris pertama sesuai urutan input SIMRS. Pendekatan ini mengasumsikan 
+# bahwa diagnosis pertama yang tercatat merepresentasikan diagnosis utama 
+# penyebab rawat inap, sebuah praktik pencatatan yang umum di RS Indonesia.
 df = df.sort_values('no_registrasi')
 df = df.drop_duplicates(subset='no_registrasi', keep='first')
 print(f"Setelah deduplikasi: {len(df)} baris")
@@ -117,7 +121,7 @@ print(f"\n  -> Bab 'P' (perinatal/neonatal): {(df['bab_diagnosis'] == 'P').sum()
 
 # ── SIMPAN HASIL CLEANING ──────────────────────────────────────────────────────
 KOLOM_FINAL = [
-    'no_registrasi', 'tgl_masuk', 'usia', 'jenis_kelamin',
+    'rm', 'no_registrasi', 'tgl_masuk', 'usia', 'jenis_kelamin',
     'kode_diagnosis', 'Diagnosa', 'bab_diagnosis',
     'ruang_perawatan', 'jenis_perawatan', 'cara_datang',
     'hari_masuk', 'los', 'los_kategori'

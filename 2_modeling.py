@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import joblib
-from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold
+from sklearn.model_selection import GridSearchCV, StratifiedGroupKFold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
@@ -30,10 +30,13 @@ idx_kategorikal = [FITUR.index(c) for c in kolom_kategorikal]
 X = df[FITUR].copy()
 y = df[TARGET]
 
-# ── SPLIT DATA DULU: 80% TRAIN, 20% TEST (STRATIFIED) ─────────────────────────
-X_train_raw, X_test_raw, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
-)
+# ── SPLIT DATA DULU: 80% TRAIN, 20% TEST (STRATIFIED, GROUPED BY RM) ───────────
+sgkf = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
+train_idx, test_idx = next(sgkf.split(X, y, groups=df['rm']))
+
+X_train_raw, X_test_raw = X.iloc[train_idx], X.iloc[test_idx]
+y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
+groups_train = df['rm'].iloc[train_idx]
 print(f"Train: {len(X_train_raw)} | Test: {len(X_test_raw)}")
 
 print("\nDistribusi kelas (train):")
@@ -77,7 +80,7 @@ n_panjang = (y_train == 2).sum()
 target_smote = int(n_panjang * 2.5) # Menggandakan proporsi kelas minoritas
 
 smotenc = SMOTENC(categorical_features=idx_kategorikal, random_state=42, sampling_strategy={2: target_smote})
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+cv = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
 
 # ── MODEL 1: XGBOOST PIPELINE ─────────────────────────────────────────────────
 print("\n[XGBoost] Mulai Grid Search dengan SMOTENC Pipeline...")
@@ -95,7 +98,7 @@ param_grid_xgb = {
 grid_xgb = GridSearchCV(pipeline_xgb, param_grid_xgb, cv=cv, scoring='f1_macro', n_jobs=-1, verbose=1)
 
 # Fit pipeline
-grid_xgb.fit(X_train, y_train)
+grid_xgb.fit(X_train, y_train, groups=groups_train)
 
 print(f"XGBoost best params  : {grid_xgb.best_params_}")
 print(f"XGBoost best CV F1(m): {grid_xgb.best_score_:.4f}")
@@ -115,7 +118,7 @@ param_grid_rf = {
 }
 
 grid_rf = GridSearchCV(pipeline_rf, param_grid_rf, cv=cv, scoring='f1_macro', n_jobs=-1, verbose=1)
-grid_rf.fit(X_train, y_train)
+grid_rf.fit(X_train, y_train, groups=groups_train)
 
 print(f"Random Forest best params  : {grid_rf.best_params_}")
 print(f"Random Forest best CV F1(m): {grid_rf.best_score_:.4f}")
