@@ -22,66 +22,133 @@ st.set_page_config(
 # ── CUSTOM CSS ─────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
+    color: #334155;
+    background-color: #f8fafc;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    color: #0f172a;
+}
+
 .sidebar .sidebar-content {
-    background-color: var(--secondary-background-color);
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
 }
+
 .page-header {
-    background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%);
     color: white;
-    padding: 24px 32px;
-    border-radius: 16px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 32px 40px;
+    border-radius: 24px;
+    margin-bottom: 32px;
+    box-shadow: 0 20px 25px -5px rgba(13, 148, 136, 0.15), 0 8px 10px -6px rgba(13, 148, 136, 0.1);
+    position: relative;
+    overflow: hidden;
 }
-.page-header h2 { margin: 0; font-size: 1.75rem; font-weight: 700; letter-spacing: -0.025em; }
-.page-header p  { margin: 8px 0 0; font-size: 1rem; opacity: 0.9; }
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.2) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.page-header h2 { margin: 0; font-size: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: white; }
+.page-header p  { margin: 12px 0 0; font-size: 1.1rem; opacity: 0.9; max-width: 600px; line-height: 1.5; }
+
 .card {
-    background: var(--background-color);
-    border: 1px solid var(--secondary-background-color);
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    border-color: rgba(13, 148, 136, 0.3);
+}
+
+.card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0d9488;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.badge-pendek  { background:rgba(34, 197, 94, 0.1); color:#16a34a; border:1px solid rgba(34, 197, 94, 0.3); border-radius:16px; padding:16px 32px; font-weight:700; font-size:1.5rem; display:inline-block; font-family: 'Outfit', sans-serif; box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.1);}
+.badge-sedang  { background:rgba(245, 158, 11, 0.1); color:#d97706; border:1px solid rgba(245, 158, 11, 0.3); border-radius:16px; padding:16px 32px; font-weight:700; font-size:1.5rem; display:inline-block; font-family: 'Outfit', sans-serif; box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.1);}
+.badge-panjang { background:rgba(239, 68, 68, 0.1); color:#dc2626; border:1px solid rgba(239, 68, 68, 0.3); border-radius:16px; padding:16px 32px; font-weight:700; font-size:1.5rem; display:inline-block; font-family: 'Outfit', sans-serif; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1);}
+
+.metric-box {
+    background: #ffffff;
     border-radius: 16px;
     padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-.card-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-color);
-    opacity: 0.8;
-    margin-bottom: 12px;
-}
-.badge-pendek  { background:rgba(34, 197, 94, 0.1); color:#22c55e; border:1px solid rgba(34, 197, 94, 0.3); border-radius:12px; padding:16px 24px; font-weight:700; font-size:1.25rem; display:inline-block;}
-.badge-sedang  { background:rgba(245, 158, 11, 0.1); color:#f59e0b; border:1px solid rgba(245, 158, 11, 0.3); border-radius:12px; padding:16px 24px; font-weight:700; font-size:1.25rem; display:inline-block;}
-.badge-panjang { background:rgba(239, 68, 68, 0.1); color:#ef4444; border:1px solid rgba(239, 68, 68, 0.3); border-radius:12px; padding:16px 24px; font-weight:700; font-size:1.25rem; display:inline-block;}
-.metric-box {
-    background: var(--secondary-background-color);
-    border-radius: 12px;
-    padding: 20px;
     text-align: center;
-    border: 1px solid var(--secondary-background-color);
-    border-top: 4px solid #3b82f6;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #0d9488;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
 }
-.metric-box .metric-val { font-size: 2rem; font-weight: 700; color: var(--text-color); }
-.metric-box .metric-lbl { font-size: 0.875rem; color: var(--text-color); opacity: 0.8; margin-top: 4px; font-weight: 500;}
-.metric-box.alert { border-top-color: #ef4444; background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2);}
-.metric-box.alert .metric-val { color: #ef4444; }
+.metric-box:hover {
+    transform: translateY(-2px);
+}
+.metric-box .metric-val { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 700; color: #0f172a; line-height: 1.1; }
+.metric-box .metric-lbl { font-size: 0.9rem; color: #64748b; margin-top: 8px; font-weight: 500;}
+.metric-box.alert { border-top-color: #ef4444; background: rgba(254, 242, 242, 0.5); }
+.metric-box.alert .metric-val { color: #dc2626; }
+
 .stButton > button {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    background: linear-gradient(135deg, #0f766e, #0891b2);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 9999px;
+    font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    padding: 12px 24px;
-    transition: all 0.2s;
+    font-size: 1.05rem;
+    padding: 12px 32px;
+    box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.3);
+    transition: all 0.3s ease;
 }
-.stButton > button:hover { opacity: 0.9; }
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(13, 148, 136, 0.4);
+    color: white;
+    opacity: 0.95;
+}
+.stButton > button:active {
+    transform: translateY(1px);
+}
+
+/* Tweak st.number_input & st.selectbox for modern look */
+div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {
+    border-radius: 12px;
+    background-color: #f1f5f9;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+div[data-baseweb="select"] > div:hover, div[data-baseweb="input"] > div:hover {
+    background-color: #e2e8f0;
+}
+div[data-baseweb="select"] > div:focus-within, div[data-baseweb="input"] > div:focus-within {
+    border-color: #0d9488;
+    background-color: #ffffff;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -203,7 +270,7 @@ if menu == "Prediksi Individu":
     with col1:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.markdown("<div class='card-title'>Data Demografi</div>", unsafe_allow_html=True)
-        st.caption("Usia (isi salah satu atau kombinasi — mengikuti format data asli 'Th/Bl/Hr')")
+        st.caption("Usia (isi salah satu atau kombinasi mengikuti format data asli 'Th/Bl/Hr')")
         c_th, c_bl, c_hr = st.columns(3)
         with c_th:
             usia_th = st.number_input("Tahun", min_value=0, max_value=120, value=0, step=1)
@@ -304,7 +371,7 @@ if menu == "Prediksi Individu":
 elif menu == "Prediksi Massal":
     st.markdown("""
     <div class="page-header">
-        <h2>Prediksi Lama Rawat Inap — Massal</h2>
+        <h2>Prediksi Lama Rawat Inap Massal</h2>
         <p>Unggah file CSV atau Excel (.xlsx) untuk memprediksi banyak pasien sekaligus dalam hitungan detik.</p>
     </div>
     """, unsafe_allow_html=True)
