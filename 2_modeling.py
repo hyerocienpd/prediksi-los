@@ -5,7 +5,7 @@ import joblib
 from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.utils.class_weight import compute_class_weight
+
 from sklearn.metrics import accuracy_score, f1_score
 from xgboost import XGBClassifier
 from imblearn.pipeline import Pipeline as ImbPipeline
@@ -70,10 +70,6 @@ joblib.dump(encoders, 'dashboard/encoders.pkl')
 X_test.to_csv('data/X_test.csv', index=False)
 y_test.to_csv('data/y_test.csv', index=False)
 
-# ── HITUNG BOBOT KELAS (atasi imbalanced data) ────────────────────────────────
-kelas = np.array([0, 1, 2])
-bobot = compute_class_weight('balanced', classes=kelas, y=y_train)
-bobot_dict = {i: bobot[i] for i in kelas}
 
 # ── SETUP SMOTENC ────────────────────────────────────────────────────────────
 # Menentukan target oversampling untuk kelas minoritas ("Panjang" / kelas 2)
